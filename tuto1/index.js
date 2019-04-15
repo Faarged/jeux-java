@@ -25,8 +25,8 @@ var rightPressed = false;
 var leftPressed = false;
 
 //on défini le nb de ligne et colonne de brique, et leur hauteur largeur et padding pour pas qu'elle se touchent
-var brickRowCount = 3;
-var brickColumnCount = 5;
+var brickRowCount = 6;
+var brickColumnCount = 8;
 var brickWidth = 75;
 var brickHeight = 20;
 var brickPadding = 10;
@@ -102,7 +102,7 @@ function draw() {
     else {
           lives--;
           if(!lives) {
-            alert("GAME OVER");
+            alert("TU CODES EN HMTL!!!!!");
             document.location.reload();
           }
           else {
@@ -130,6 +130,8 @@ function draw() {
 }
 
 draw();
+
+
 
 function drawball(){
   ctx.beginPath(); //code pour dessiner la balle
@@ -160,7 +162,7 @@ function drawBricks() {
               bricks[c][r].y = brickY;
               ctx.beginPath();
               ctx.rect(brickX, brickY, brickWidth, brickHeight);
-              ctx.fillStyle = "#0095DD";
+              ctx.fillStyle = "#255A1C";
               ctx.fill();
               ctx.closePath();
           }
