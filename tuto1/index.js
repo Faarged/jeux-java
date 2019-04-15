@@ -49,6 +49,15 @@ var score = 0;
 //pour savoir si les touches st pressés
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+//savoir si on bouge la souris
+document.addEventListener("mousemove", mouseMoveHandler, false);
+//contrôle à la souris
+function mouseMoveHandler(e) {
+    var relativeX = e.clientX - canvas.offsetLeft;
+    if(relativeX > 0 && relativeX < canvas.width) {
+        paddleX = relativeX - paddleWidth/2;
+    }
+}
 function keyDownHandler(e) {
     if(e.keyCode == 39) {
         rightPressed = true;
@@ -70,8 +79,10 @@ function keyUpHandler(e) {
 //pour garder le dessin a jour, on définit une fonction draw en continu
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); //cette ligne va permettre d'effacer l'ancienne position de la balle
+  //on appelle les fonctions à afficher
   drawball();
   drawPaddle();
+  drawScore();
   drawBricks();
   collisionDetection();
   //je rassemble les 2 conditions en une pour gérer la collision aves le haut et bas
@@ -85,7 +96,7 @@ function draw() {
         dy = -dy;
     }
     else {
-        alert("C'est nul!");
+        alert("TU CODES EN HMTL!!!!");
         document.location.reload(); //code qui relance la partie
     }
   }
@@ -153,6 +164,11 @@ function collisionDetection() {
                     dy = -dy;
                     b.status = 0;
                     score++; //va augmenter le score qd on touche une brique
+                    if(score == brickRowCount*brickColumnCount) {
+                        alert("ça va ton projet est pas mal");
+                        document.location.reload(); //recharge la page pr relancer le jeu
+                        clearInterval(interval); // pour que chrome termine le jeu
+                    }
                 }
             }
         }
