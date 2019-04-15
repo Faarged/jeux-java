@@ -8,21 +8,46 @@ var ctx = canvas.getContext("2d");
 var x = canvas.width/2;
 var y = canvas.height-30
 
+//pour faire droire que la balle bouge
+var dx = 2;
+var dy = -2;
+
+//fonction contenant le rayon de la balle
+var ballRadius = 10;
+
 //pour garder le dessin a jour, on définit une fonction draw en continu
 function draw() {
-  ctx.beginPath(); //code pour dessiner la balle
-ctx.arc(x, y, 10, 0, Math.PI*2);
-ctx.fillStyle = "#0095DD";
-ctx.fill();
-ctx.closePath();
+ctx.clearRect(0, 0, canvas.width, canvas.height); //cette ligne va permettre d'effacer l'ancienne position de la balle
+drawball();
 x += dx; //la balle sera peinte a chaque refresh
 y += dy;
 }
 setInterval(draw, 10); //la fonction s'execute toute les 10ms
 
-//pour faire droire que la balle bouge
-var dx = 2;
-var dy = -2;
+function drawball(){
+  ctx.beginPath(); //code pour dessiner la balle
+  ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+  ctx.fillStyle = "#0095DD";
+  ctx.fill();
+  ctx.closePath();
+}
+
+/*
+//si la balle touche le mur du haut, sa direction s'inverse
+if(y + dy < 0) { //si la position y de la balle est <0, on inverse le signe du déplacement de la balle
+    dy = -dy;
+}
+
+//là on gère la bas du myCanvas
+if(y + dy > canvas.height) {
+    dy = -dy;
+}*/
+
+
+//je rassemble les 2 conditions du dessus en une pour gérer la collision aves le haut et bas
+if(y + dy > canvas.height || y + dy < 0) {
+    dy = -dy;
+}
 
 /*
 //code pour afficher un carré rouge
