@@ -17,10 +17,18 @@ var ballRadius = 10;
 
 //pour garder le dessin a jour, on définit une fonction draw en continu
 function draw() {
-ctx.clearRect(0, 0, canvas.width, canvas.height); //cette ligne va permettre d'effacer l'ancienne position de la balle
-drawball();
-x += dx; //la balle sera peinte a chaque refresh
-y += dy;
+  ctx.clearRect(0, 0, canvas.width, canvas.height); //cette ligne va permettre d'effacer l'ancienne position de la balle
+  drawball();
+  //je rassemble les 2 conditions du dessus en une pour gérer la collision aves le haut et bas
+  if(y + dy > canvas.height || y + dy < 0) {
+      dy = -dy;
+  }
+  //la meme avec l'axe x
+  if(x + dx > canvas.width || x + dx < 0) {
+      dx = -dx;
+  }
+  x += dx; //la balle sera peinte a chaque refresh
+  y += dy;
 }
 setInterval(draw, 10); //la fonction s'execute toute les 10ms
 
@@ -44,10 +52,7 @@ if(y + dy > canvas.height) {
 }*/
 
 
-//je rassemble les 2 conditions du dessus en une pour gérer la collision aves le haut et bas
-if(y + dy > canvas.height || y + dy < 0) {
-    dy = -dy;
-}
+
 
 /*
 //code pour afficher un carré rouge
