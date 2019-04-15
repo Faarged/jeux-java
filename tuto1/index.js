@@ -46,6 +46,9 @@ for(var c=0; c<brickColumnCount; c++) {
 //variable qui comptient le score
 var score = 0;
 
+//nombre de vies
+var lives = 2;
+
 //pour savoir si les touches st pressés
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -83,6 +86,7 @@ function draw() {
   drawball();
   drawPaddle();
   drawScore();
+  drawLives();
   drawBricks();
   collisionDetection();
   //je rassemble les 2 conditions en une pour gérer la collision aves le haut et bas
@@ -96,8 +100,18 @@ function draw() {
         dy = -dy;
     }
     else {
-        alert("TU CODES EN HMTL!!!!");
-        document.location.reload(); //code qui relance la partie
+          lives--;
+          if(!lives) {
+            alert("GAME OVER");
+            document.location.reload();
+          }
+          else {
+            x = canvas.width/2;
+            y = canvas.height-30;
+            dx = 3;
+            dy = -3;
+            paddleX = (canvas.width-paddleWidth)/2;
+          }
     }
   }
   //la meme avec l'axe x
@@ -112,9 +126,10 @@ function draw() {
   else if(leftPressed && paddleX > 0) {
     paddleX -= 7;
   }
+  requestAnimationFrame(draw); //la fonction s'appelle elle meme
 }
 
-setInterval(draw, 10); //la fonction s'execute toute les 10ms
+draw();
 
 function drawball(){
   ctx.beginPath(); //code pour dessiner la balle
@@ -167,7 +182,7 @@ function collisionDetection() {
                     if(score == brickRowCount*brickColumnCount) {
                         alert("ça va ton projet est pas mal");
                         document.location.reload(); //recharge la page pr relancer le jeu
-                        clearInterval(interval); // pour que chrome termine le jeu
+                        /* je replace cette fontion en commentaire car le code final n'en a plus besoin clearInterval(interval); // pour que chrome termine le jeu */
                     }
                 }
             }
@@ -180,6 +195,13 @@ function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Score: "+score, 8, 20);
+}
+
+//fonction qui va afficher les vies
+function drawLives() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Projets: "+lives, canvas.width-65, 20);
 }
 
 /*
