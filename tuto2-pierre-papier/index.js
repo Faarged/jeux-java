@@ -17,7 +17,7 @@ for (let i =0; i < buttons.length; i++){
         resultat = "Perdu";
       }
 
-      //stop a 15min26 de video
+      const buttons = document.querySelector(".resultat").innerHTML = 'Joueur : ${joueur} <br> Robot : ${robot} <br> ${resultat}';
 
     //console.log('Joueur : ${joueur} VS Robot : ${robot}');
   });
