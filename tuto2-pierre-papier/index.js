@@ -10,7 +10,7 @@ for (let i =0; i < buttons.length; i++){
       if (joueur === robot){
         resultat = "Egalité";
       }
-      else if ((joueur === "Pierre" && robot === "Ciseaux") || (joueur === "Feuille" && robot === "Pierre") || (joueur === "Ciseaux" && robot === "Feuille")){
+      else if ((joueur === "Pierre" && robot === "Ciseaux") || (joueur === "Papier" && robot === "Pierre") || (joueur === "Ciseaux" && robot === "Papier")){
         resultat = "Gagné, t'as de la veine";
       }
       else{

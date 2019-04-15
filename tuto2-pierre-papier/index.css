@@ -1,0 +1,13 @@
+html{
+margin:0;
+padding:0;
+}
+body{
+  font-size: 50px;
+  font-family: Cormorant Garamond;
+}
+
+button{
+  display: inline-block;
+  margin: 2em;
+}
