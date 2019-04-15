@@ -139,6 +139,7 @@ function drawball(){
   ctx.fillStyle = "#0095DD";
   ctx.fill();
   ctx.closePath();
+  
 }
 
 //fonction pour dessiner la raquette
