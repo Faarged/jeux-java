@@ -43,6 +43,8 @@ for(var c=0; c<brickColumnCount; c++) {
     }
 }
 
+//variable qui comptient le score
+var score = 0;
 
 //pour savoir si les touches st pressés
 document.addEventListener("keydown", keyDownHandler, false);
@@ -71,6 +73,7 @@ function draw() {
   drawball();
   drawPaddle();
   drawBricks();
+  collisionDetection();
   //je rassemble les 2 conditions en une pour gérer la collision aves le haut et bas
   /*if(y + dy > canvas.height || y + dy < ballRadius) {
       dy = -dy;
@@ -144,15 +147,24 @@ function collisionDetection() {
     for(var c=0; c<brickColumnCount; c++) {
         for(var r=0; r<brickRowCount; r++) {
             var b = bricks[c][r]; //pour la lisibiilité on définit b comme la variable des briques
-            //si le centre de la balle est ds les coordonnées des briques, chgt de direction
-            if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
-                dy = -dy;
+
+            if(b.status == 1) { //si la brique est active, on vérifie si collision, et si oui on change son statut
+                if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) { //si le centre de la balle est ds les coordonnées des briques, chgt de direction
+                    dy = -dy;
+                    b.status = 0;
+                    score++; //va augmenter le score qd on touche une brique
+                }
             }
         }
     }
 }
 
-
+//fonction qui va compter le score
+function drawScore() {
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Score: "+score, 8, 20);
+}
 
 /*
 //si la balle touche le mur du haut, sa direction s'inverse
