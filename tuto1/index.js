@@ -24,28 +24,26 @@ var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
 
-//pour garder le dessin a jour, on définit une fonction draw en continu
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height); //cette ligne va permettre d'effacer l'ancienne position de la balle
-  drawball();
-  drawPaddle();
-  //je rassemble les 2 conditions en une pour gérer la collision aves le haut et bas
-  if(y + dy > canvas.height || y + dy < 0) {
-      dy = -dy;
-  }
-  //la meme avec l'axe x
-  if(x + dx > canvas.width || x + dx < 0) {
-      dx = -dx;
-  }
-  x += dx; //la balle sera peinte a chaque refresh
-  y += dy;
-  if(rightPressed && paddleX < canvas.width-paddleWidth) {
-    paddleX += 7;
-  }
-  else if(leftPressed && paddleX > 0) {
-    paddleX -= 7;
-  }
+//on défini le nb de ligne et colonne de brique, et leur hauteur largeur et padding pour pas qu'elle se touchent
+var brickRowCount = 3;
+var brickColumnCount = 5;
+var brickWidth = 75;
+var brickHeight = 20;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 30;
+
+
+//je crée un tableau a 2 dimension qui contient colonne et ligne de briques
+var bricks = [];
+for(var c=0; c<brickColumnCount; c++) {
+    bricks[c] = [];
+    for(var r=0; r<brickRowCount; r++) {
+        bricks[c][r] = { x: 0, y: 0, status: 1 };
+    }
 }
+
+
 //pour savoir si les touches st pressés
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -66,6 +64,42 @@ function keyUpHandler(e) {
         leftPressed = false;
     }
 }
+
+//pour garder le dessin a jour, on définit une fonction draw en continu
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); //cette ligne va permettre d'effacer l'ancienne position de la balle
+  drawball();
+  drawPaddle();
+  drawBricks();
+  //je rassemble les 2 conditions en une pour gérer la collision aves le haut et bas
+  /*if(y + dy > canvas.height || y + dy < ballRadius) {
+      dy = -dy;
+  }*/
+  if(y + dy < ballRadius) {
+    dy = -dy;
+  } else if(y + dy > canvas.height-ballRadius) {
+    if(x > paddleX && x < paddleX + paddleWidth) {
+        dy = -dy;
+    }
+    else {
+        alert("C'est nul!");
+        document.location.reload(); //code qui relance la partie
+    }
+  }
+  //la meme avec l'axe x
+  if(x + dx > canvas.width || x + dx < ballRadius) {
+      dx = -dx;
+  }
+  x += dx; //la balle sera peinte a chaque refresh
+  y += dy;
+  if(rightPressed && paddleX < canvas.width-paddleWidth) {
+    paddleX += 7;
+  }
+  else if(leftPressed && paddleX > 0) {
+    paddleX -= 7;
+  }
+}
+
 setInterval(draw, 10); //la fonction s'execute toute les 10ms
 
 function drawball(){
@@ -84,6 +118,40 @@ function drawPaddle() {
     ctx.fill();
     ctx.closePath();
 }
+
+
+//fonction pour dessiner les briques
+function drawBricks() {
+    for(var c=0; c<brickColumnCount; c++) {
+        for(var r=0; r<brickRowCount; r++) {
+          if(bricks[c][r].status == 1) { //vérifi le statu, si il vaut 1 la brique est dessinée sinon elle disparait
+              var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+              var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+              bricks[c][r].x = brickX;
+              bricks[c][r].y = brickY;
+              ctx.beginPath();
+              ctx.rect(brickX, brickY, brickWidth, brickHeight);
+              ctx.fillStyle = "#0095DD";
+              ctx.fill();
+              ctx.closePath();
+          }
+        }
+    }
+}
+
+//fonction pour detecter les collisions, elle va parcourir les briques et comparer leur position à celle de la balle
+function collisionDetection() {
+    for(var c=0; c<brickColumnCount; c++) {
+        for(var r=0; r<brickRowCount; r++) {
+            var b = bricks[c][r]; //pour la lisibiilité on définit b comme la variable des briques
+            //si le centre de la balle est ds les coordonnées des briques, chgt de direction
+            if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+                dy = -dy;
+            }
+        }
+    }
+}
+
 
 
 /*
