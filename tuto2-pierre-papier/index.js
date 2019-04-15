@@ -10,14 +10,18 @@ for (let i =0; i < buttons.length; i++){
       if (joueur === robot){
         resultat = "Egalité";
       }
-      else if (joueur === "Pierre" && robot === "Ciseaux") || (joueur === "Feuille" && robot === "Pierre") || (joueur === "Ciseaux" && robot === "Feuille")){
-        resultat = "Gagné";
+      else if ((joueur === "Pierre" && robot === "Ciseaux") || (joueur === "Feuille" && robot === "Pierre") || (joueur === "Ciseaux" && robot === "Feuille")){
+        resultat = "Gagné, t'as de la veine";
       }
       else{
         resultat = "Perdu";
       }
 
-      const buttons = document.querySelector(".resultat").innerHTML = 'Joueur : ${joueur} <br> Robot : ${robot} <br> ${resultat}';
+      document.querySelector(".resultat").innerHTML = `
+      Joueur : ${joueur} <br>
+      Robot : ${robot} <br>
+      ${resultat}
+      `;
 
     //console.log('Joueur : ${joueur} VS Robot : ${robot}');
   });
