@@ -15,11 +15,21 @@ var dy = -2;
 //fonction contenant le rayon de la balle
 var ballRadius = 10;
 
+//je défini la taille, longueur et le pt de départ de la raquette
+var paddleHeight = 10;
+var paddleWidth = 75;
+var paddleX = (canvas.width-paddleWidth)/2;
+
+//pour definir si un bouton est pressé ou non
+var rightPressed = false;
+var leftPressed = false;
+
 //pour garder le dessin a jour, on définit une fonction draw en continu
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); //cette ligne va permettre d'effacer l'ancienne position de la balle
   drawball();
-  //je rassemble les 2 conditions du dessus en une pour gérer la collision aves le haut et bas
+  drawPaddle();
+  //je rassemble les 2 conditions en une pour gérer la collision aves le haut et bas
   if(y + dy > canvas.height || y + dy < 0) {
       dy = -dy;
   }
@@ -29,6 +39,32 @@ function draw() {
   }
   x += dx; //la balle sera peinte a chaque refresh
   y += dy;
+  if(rightPressed && paddleX < canvas.width-paddleWidth) {
+    paddleX += 7;
+  }
+  else if(leftPressed && paddleX > 0) {
+    paddleX -= 7;
+  }
+}
+//pour savoir si les touches st pressés
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+function keyDownHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = true;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = false;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = false;
+    }
 }
 setInterval(draw, 10); //la fonction s'execute toute les 10ms
 
@@ -39,6 +75,16 @@ function drawball(){
   ctx.fill();
   ctx.closePath();
 }
+
+//fonction pour dessiner la raquette
+function drawPaddle() {
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+    ctx.fillStyle = "chocolate";
+    ctx.fill();
+    ctx.closePath();
+}
+
 
 /*
 //si la balle touche le mur du haut, sa direction s'inverse
