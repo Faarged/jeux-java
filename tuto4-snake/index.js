@@ -48,7 +48,7 @@ snake[0] = {
     y : 10 * box
 };
 
-// ==============cration nourriture==========
+// ==============creation nourriture==========
 let food = {
     x : Math.floor(Math.random()*17+1) * box,
     y : Math.floor(Math.random()*15+3) * box
@@ -143,6 +143,7 @@ function draw(){
     if(snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)){
         clearInterval(game);
         dead.play();
+        alert("Tu as faim au point de te manger?")
     }
 
     snake.unshift(newHead);
