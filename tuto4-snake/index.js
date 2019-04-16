@@ -2,7 +2,7 @@ const cvs = document.getElementById(`snake`);
 
 const ctx = cvs.getContext(`2d`);
 
-// create the unit
+// =============unité en px d'un carré
 const box = 32;
 
 /*==========chargement des images et audio============
@@ -143,7 +143,7 @@ function draw(){
     if(snakeX < box || snakeX > 17 * box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)){
         clearInterval(game);
         dead.play();
-        alert("Tu as faim au point de te manger?")
+        alert("Tu as faim au point de perdre la tête?")
         document.location.reload();
     }
 
