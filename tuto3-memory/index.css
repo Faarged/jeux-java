@@ -1,0 +1,12 @@
+body{
+  background-image: -ms-linear-gradient(left, #FFFFFF, #00A3EF);
+  background-image: -moz-linear-gradient(left, #FFFFFF, #00A3EF);
+  background-image: -o-linear-gradient(left, #FFFFFF, #00A3EF);
+  background-image: -webkit-linear-gradient(left, #FFFFFF, #00A3EF);
+}
+/*les -ms; -moz; -o et -webkit servent à rendre compatible la
+fonction linear-gradient ac les différents navigateurs*/
+
+img{
+margin-right: 5px;
+}
