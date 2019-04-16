@@ -144,6 +144,7 @@ function draw(){
         clearInterval(game);
         dead.play();
         alert("Tu as faim au point de te manger?")
+        document.location.reload();
     }
 
     snake.unshift(newHead);
