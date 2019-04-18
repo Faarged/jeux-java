@@ -1,6 +1,6 @@
 //on commence par appeler l'élément qu'on veut modifier
 var canvas = document.getElementById("myCanvas");
-
+var body = document.body;
 //variable pour le rendu 2D
 var ctx = canvas.getContext("2d");
 
@@ -110,6 +110,7 @@ function draw() {
           lives--;
           if(!lives) {
             perdu.play();
+            bodychange();
             alert("TU CODES EN HMTL!!!!!");
             document.location.reload();
           }
@@ -193,6 +194,7 @@ function collisionDetection() {
                     b.status = 0;
                     score++; //va augmenter le score qd on touche une brique
                     if(score == brickRowCount*brickColumnCount) {
+                        bodychange();
                         alert("ça va ton projet est pas mal");
                         document.location.reload(); //recharge la page pr relancer le jeu
                         /* je replace cette fontion en commentaire car le code final n'en a plus besoin clearInterval(interval); // pour que chrome termine le jeu */
@@ -225,6 +227,15 @@ function bgchange(){
  }
   else if(lives === 1){
     canvas.style.backgroundImage = "url(images/skull.gif)";
+  }
+}
+
+function bodychange(){
+  if(!lives){
+    body.style.backgroundImage = "url(images/jdg.jpeg)";
+  }
+  else if(score == brickRowCount*brickColumnCount){
+    body.style.backgroundImage = "url(images/romain7.gif)";
   }
 }
 /*
