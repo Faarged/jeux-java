@@ -47,7 +47,7 @@ for(var c=0; c<brickColumnCount; c++) {
 var score = 0;
 
 //nombre de vies
-var lives = 2;
+var lives = 3;
 
 //pour savoir si les touches st pressés
 document.addEventListener("keydown", keyDownHandler, false);
@@ -106,6 +106,7 @@ function draw() {
             document.location.reload();
           }
           else {
+            bgchange()
             x = canvas.width/2;
             y = canvas.height-30;
             dx = 3;
@@ -139,7 +140,7 @@ function drawball(){
   ctx.fillStyle = "#0095DD";
   ctx.fill();
   ctx.closePath();
-  
+
 }
 
 //fonction pour dessiner la raquette
@@ -207,6 +208,16 @@ function drawLives() {
     ctx.fillText("Projets: "+lives, canvas.width-65, 20);
 }
 
+//fonction pour changer le background
+function bgchange(){
+  if(lives === 2){
+   canvas.style.backgroundImage = "url(images/red.gif)";
+
+ }
+  else if(lives === 1){
+    canvas.style.backgroundImage = "url(images/skull.gif)";
+  }
+}
 /*
 //si la balle touche le mur du haut, sa direction s'inverse
 if(y + dy < 0) { //si la position y de la balle est <0, on inverse le signe du déplacement de la balle
