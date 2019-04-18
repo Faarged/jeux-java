@@ -49,6 +49,13 @@ var score = 0;
 //nombre de vies
 var lives = 3;
 
+//les sons du jeu
+let perdu = new Audio();
+let moinsune = new Audio();
+
+perdu.src = "audio/cri.mp3";
+moinsune.src = "audio/wilhem.mp3";
+
 //pour savoir si les touches st pressés
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -102,11 +109,13 @@ function draw() {
     else {
           lives--;
           if(!lives) {
+            perdu.play();
             alert("TU CODES EN HMTL!!!!!");
             document.location.reload();
           }
           else {
-            bgchange()
+            bgchange();
+            moinsune.play();
             x = canvas.width/2;
             y = canvas.height-30;
             dx = 3;
