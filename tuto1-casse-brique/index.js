@@ -52,9 +52,12 @@ var lives = 3;
 //les sons du jeu
 let perdu = new Audio();
 let moinsune = new Audio();
-
+let fanfare = new Audio();
+let ladonna = new Audio();
 perdu.src = "audio/cri.mp3";
 moinsune.src = "audio/wilhem.mp3";
+fanfare.src = "audio/fanfare.mp3";
+ladonna.src = "audio/la-donna.mp3";
 
 //pour savoir si les touches st pressés
 document.addEventListener("keydown", keyDownHandler, false);
@@ -92,6 +95,7 @@ function draw() {
   //on appelle les fonctions à afficher
   drawball();
   drawPaddle();
+  ladonna.play();
   drawScore();
   drawLives();
   drawBricks();
@@ -109,6 +113,7 @@ function draw() {
     else {
           lives--;
           if(!lives) {
+            ladonna.pause();
             perdu.play();
             bodychange();
             alert("TU CODES EN HMTL!!!!!");
@@ -194,10 +199,12 @@ function collisionDetection() {
                     b.status = 0;
                     score++; //va augmenter le score qd on touche une brique
                     if(score == brickRowCount*brickColumnCount) {
-                        bodychange();
-                        alert("ça va ton projet est pas mal");
-                        document.location.reload(); //recharge la page pr relancer le jeu
-                        /* je replace cette fontion en commentaire car le code final n'en a plus besoin clearInterval(interval); // pour que chrome termine le jeu */
+                      ladonna.pause();
+                      fanfare.play();
+                      bodychange();
+                      alert("ça va ton projet est pas mal");
+                      document.location.reload(); //recharge la page pr relancer le jeu
+                      /* je replace cette fontion en commentaire car le code final n'en a plus besoin clearInterval(interval); // pour que chrome termine le jeu */
                     }
                 }
             }
