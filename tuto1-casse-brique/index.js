@@ -15,7 +15,7 @@ var dy = -2;
 //fonction contenant le rayon de la balle
 var ballRadius = 10;
 
-//je défini la taille, longueur et le pt de départ de la raquette
+//je défini la hauteur, longueur et le pt de départ de la raquette
 var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width-paddleWidth)/2;
@@ -107,7 +107,7 @@ function draw() {
   if(y + dy < ballRadius) {
     dy = -dy;
   } else if(y + dy > canvas.height-ballRadius) {
-    if(x > paddleX && x < paddleX + paddleWidth) {
+    if(x > paddleX && x < paddleX + paddleWidth) { //chercher le moyen de changer l'angle en ajoutant un if dans celui la
         dy = -dy;
     }
     else {
@@ -126,7 +126,7 @@ function draw() {
             y = canvas.height-30;
             dx = 3;
             dy = -3;
-            paddleX = (canvas.width-paddleWidth)/2;
+            //paddleX = (canvas.width-paddleWidth)/2; j'annule le replacement au centre de la raquette
           }
     }
   }
@@ -179,7 +179,7 @@ function drawBricks() {
               bricks[c][r].y = brickY;
               ctx.beginPath();
               ctx.rect(brickX, brickY, brickWidth, brickHeight);
-              ctx.fillStyle = "#255A1C";
+              colorbrik();
               ctx.fill();
               ctx.closePath();
           }
@@ -226,7 +226,7 @@ function drawLives() {
     ctx.fillText("Projets: "+lives, canvas.width-65, 20);
 }
 
-//fonction pour changer le background
+//fonction pour changer le background en fonction du nombre de vie
 function bgchange(){
   if(lives === 2){
    canvas.style.backgroundImage = "url(images/red.gif)";
@@ -237,6 +237,19 @@ function bgchange(){
   }
 }
 
+function colorbrik(){
+  if(lives === 2){
+    ctx.fillStyle = "#C30B00";
+  }
+  else if(lives === 1){
+    ctx.fillStyle = "#6636C2";
+  }
+  else{
+  ctx.fillStyle = "#255A1C";
+  }
+}
+
+//fonction qui va changer le background en fonction de victoire ou défaite
 function bodychange(){
   if(!lives){
     body.style.backgroundImage = "url(images/jdg.jpeg)";
