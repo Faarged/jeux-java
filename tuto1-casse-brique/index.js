@@ -4,13 +4,13 @@ var body = document.body;
 //variable pour le rendu 2D
 var ctx = canvas.getContext("2d");
 
-//on définit x et y
+//on définit x et y, valeurs de départ
 var x = canvas.width/2;
 var y = canvas.height-30
 
-//pour faire droire que la balle bouge
-var dx = 2;
-var dy = -2;
+//pour faire droire que la balle bouge, un plus grd chiffre augmente la vitesse
+var dx = 3;
+var dy = -3;
 
 //fonction contenant le rayon de la balle
 var ballRadius = 10;
@@ -122,11 +122,17 @@ function draw() {
           else {
             bgchange();
             moinsune.play();
-            x = canvas.width/2;
+            x = canvas.width/3;
             y = canvas.height-30;
-            dx = 3;
-            dy = -3;
-            //paddleX = (canvas.width-paddleWidth)/2; j'annule le replacement au centre de la raquette
+            if(lives === 2){
+              dx = -4;
+              dy = -4;
+            }
+            else if(lives === 1){
+              dx = 6;
+              dy = -6;
+            }
+            //paddleX = (canvas.width-paddleWidth)/2;  ===> j'annule le replacement au centre de la raquette
           }
     }
   }
@@ -237,6 +243,7 @@ function bgchange(){
   }
 }
 
+//fonction qui va changer la couleur des briques en fonction des vies
 function colorbrik(){
   if(lives === 2){
     ctx.fillStyle = "#C30B00";
