@@ -1,6 +1,7 @@
 # jeux-java
 
 Le but de l'exercice est de coder soi-même un ou plusieurs jeux avec Javascript et jquery
+sur la semaine du 14 Avril 2019
 
 Le premier que j'ai fait est un casse-brique codé en javascript sans jquery, via un <canvas>,
   les éléments sont tous dessinés en JS, le background est un gif animé de matrix.
